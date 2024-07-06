@@ -1,2 +1,4 @@
 .idx/
 .vscode/
+__pycache__/
+myenv/
