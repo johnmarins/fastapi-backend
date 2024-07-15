@@ -39,6 +39,39 @@ async def user(id: int):
     except IndexError:
         return {"error": "User not found"}
 
+#Post
+@app.post("/user/")
+async def user(user: User):
+    users_list.append(user)
+    return users_list
+
+@app.put("/user/")
+async def user(user: User):
+
+    found = False
+
+    for index, saved_user in enumerate(users_list):
+        if saved_user.id == user.id:
+            users_list[index] = user
+            found = True
+
+    if not found:
+        return {"error": "User not found"}
+    else:
+        return users_list[index]
+
+#Delete
+@app.delete("/user/{id}")
+async def user(id: int):
+    for index, saved_user in enumerate(users_list):
+        try:
+            if saved_user.id == id:
+                del users_list[index]
+                return users_list
+        except IndexError:
+            return {"error": "User not found"}
+
+
 
 
 
