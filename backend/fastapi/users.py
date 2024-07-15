@@ -40,11 +40,16 @@ async def user(id: int):
         return {"error": "User not found"}
 
 #Post
-@app.post("/user/")
+@app.post("/user/", status_code=201)
 async def user(user: User):
-    users_list.append(user)
-    return users_list
+    try:
+        users_list.append(user)
+        return users_list
+    except HTTPException(status_code=204, detail="User already exists"):
+        return {"error": "User already exists"}
 
+
+#Put
 @app.put("/user/")
 async def user(user: User):
 
